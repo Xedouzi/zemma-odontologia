@@ -66,7 +66,7 @@
   body { margin: 0; background: var(--fundo); color: var(--tinta); font: 400 1.0625rem/1.65 var(--sans); }
   img, svg { display: block; max-width: 100%; }
   a { color: var(--destaque); text-underline-offset: .18em; }
-  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.12; margin: 0; letter-spacing: -.01em; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.12; margin: 0; letter-spacing: -.01em; overflow-wrap: break-word; }
   p { margin: 0; }
   :focus-visible { outline: 3px solid var(--destaque); outline-offset: 3px; border-radius: 4px; }
   .pular { position: absolute; left: -999px; top: 0; background: var(--petroleo); color: #fff; padding: .7rem 1rem; z-index: 99; }
@@ -103,22 +103,23 @@
   .marca-nome small { display: block; font-family: var(--sans); font-size: .75rem; color: var(--suave); letter-spacing: .02em; margin-top: .25rem; }
   .topo-miolo > nav { margin-left: auto; }
   .menu { display: flex; align-items: center; gap: .25rem; list-style: none; padding: 0; margin-top: 0; margin-bottom: 0; }
-  .menu a { display: flex; align-items: center; min-height: 44px; padding: 0 .8rem; color: var(--tinta); text-decoration: none; border-radius: 999px; font-weight: 500; }
+  .menu a { display: flex; align-items: center; min-height: 44px; white-space: nowrap; padding: 0 .8rem; color: var(--tinta); text-decoration: none; border-radius: 999px; font-weight: 500; }
   .menu a:hover { background: var(--nevoa); }
   .menu .menu-acao a { background: var(--destaque); color: var(--botao-texto); padding: 0 1.15rem; margin-left: .5rem; }
   .menu .menu-acao a:hover { background: var(--petroleo-forte); }
   .menu-botao { display: none; }
-  @media (max-width: 960px) {
-    .menu-botao { display: grid; place-content: center; gap: 5px; width: 52px; height: 52px; margin-left: auto; margin-right: -.5rem; background: none; border: 0; border-radius: 10px; cursor: pointer; }
-    .menu-botao span { display: block; width: 28px; height: 4px; border-radius: 4px; background: var(--destaque); transition: transform .22s cubic-bezier(.2, .7, .2, 1), opacity .2s; }
-    .menu-aberto .menu-botao span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-    .menu-aberto .menu-botao span:nth-child(2) { opacity: 0; }
-    .menu-aberto .menu-botao span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-    .menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: .5rem 1.25rem 1.25rem; background: var(--fundo); border-bottom: 1px solid var(--linha); box-shadow: 0 18px 30px -24px rgba(0, 40, 45, .35); }
-    .menu-aberto .menu { display: flex; }
-    .menu a { min-height: 52px; border-radius: 0; border-bottom: 1px solid var(--linha); padding: 0 .25rem; }
-    .menu .menu-acao a { margin: 1rem 0 0; justify-content: center; border-radius: 999px; border-bottom: 0; }
-  }
+  .topo.compacto .topo-miolo { gap: .75rem; }
+  .topo.compacto .topo-miolo > nav { display: contents; }
+  .topo.compacto .marca { min-width: 0; }
+  .topo.compacto .menu-botao { display: grid; place-content: center; gap: 5px; width: 52px; height: 52px; margin-left: auto; margin-right: -.5rem; background: none; border: 0; border-radius: 10px; cursor: pointer; }
+  .topo.compacto .menu-botao span { display: block; width: 28px; height: 4px; border-radius: 4px; background: var(--destaque); transition: transform .22s cubic-bezier(.2, .7, .2, 1), opacity .2s; }
+  .topo.compacto.menu-aberto .menu-botao span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+  .topo.compacto.menu-aberto .menu-botao span:nth-child(2) { opacity: 0; }
+  .topo.compacto.menu-aberto .menu-botao span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+  .topo.compacto .menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; padding: .5rem 1.25rem 1.25rem; background: var(--fundo); border-bottom: 1px solid var(--linha); box-shadow: 0 18px 30px -24px rgba(0, 40, 45, .35); }
+  .topo.compacto.menu-aberto .menu { display: flex; }
+  .topo.compacto .menu a { min-height: 52px; border-radius: 0; border-bottom: 1px solid var(--linha); padding: 0 .25rem; }
+  .topo.compacto .menu .menu-acao a { margin: 1rem 0 0; justify-content: center; border-radius: 999px; border-bottom: 0; }
   @media (prefers-reduced-motion: reduce) { .menu-botao span { transition: none; } }
 
   /* Abertura */
@@ -195,13 +196,11 @@
   }
 
   /* Primeira consulta (sequência real) */
-  .etapas { list-style: none; margin: 2.75rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; counter-reset: etapa; }
+  .etapas { list-style: none; margin: 2.75rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13em), 1fr)); gap: 2rem; counter-reset: etapa; }
   .etapas li { counter-increment: etapa; border-top: 1px solid var(--linha); padding-top: 1.25rem; }
   .etapas li::before { content: counter(etapa); display: block; font-family: var(--serif); font-size: 3.4rem; line-height: 1; color: var(--destaque); margin-bottom: .75rem; font-weight: 400; }
   .etapas h3 { font-size: 1.4rem; }
   .etapas p { margin-top: .5rem; color: var(--suave); }
-  @media (max-width: 900px) { .etapas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 520px) { .etapas { grid-template-columns: minmax(0, 1fr); } }
 
   /* Equipe */
   .equipe { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
@@ -220,7 +219,7 @@
   .dados { display: grid; gap: 1.4rem; margin: 0; }
   .dados dt { color: var(--prata); font-size: .95rem; }
   .dados dd { margin: .2rem 0 0; font-size: 1.15rem; }
-  .chegar .a-preencher { color: #17292C; }
+  .chegar .a-preencher { background: #FFF1A8; color: #17292C; }
   .chegar-acoes { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
   .chegar .botao--cheio { background: #E4EEEF; color: #00282D; border-color: #E4EEEF; }
   .chegar .botao--cheio:hover { background: #FFFFFF; border-color: #FFFFFF; }
@@ -558,7 +557,18 @@ document.addEventListener("click", (e) => { if (!topo.contains(e.target)) menu(f
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && topo.classList.contains("menu-aberto")) { menu(false); menuBotao.focus(); }
 });
-matchMedia("(min-width: 961px)").addEventListener("change", (e) => { if (e.matches) menu(false); });
+/* o menu cabe numa linha? se nao (tela estreita ou fonte grande), vira as 3 barrinhas */
+function ajustarMenu() {
+  const eraCompacto = topo.classList.contains("compacto");
+  topo.classList.remove("compacto");
+  const miolo = $(".topo-miolo");
+  const naoCabe = innerWidth <= 960 || miolo.scrollWidth > miolo.clientWidth + 1;
+  topo.classList.toggle("compacto", naoCabe);
+  if (eraCompacto && !naoCabe) menu(false);
+}
+ajustarMenu();
+addEventListener("resize", ajustarMenu);
+document.fonts.ready.then(ajustarMenu);
 </script>
 </body>
 </html>
