@@ -7,7 +7,7 @@
 <meta name="description" content="Clínica odontológica e médica no Jardim Itapuã, em Cravinhos. Implantes, facetas, harmonização orofacial e prevenção, com escaneamento intraoral. Agende sua avaliação pelo WhatsApp.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="color-scheme" content="only light">
-<meta name="theme-color" content="#29B3E3">
+<meta name="theme-color" content="#1B4E63">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Red+Hat+Text:wght@400;500;600&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
   :root {
     --petroleo: #0B6E91;
     --petroleo-forte: #085A77;
-    --azul: #29B3E3;
+    --azul: #1B4E63;
     --madeira: #926649;
     --prata: #AFBBC0;
     --nevoa: #EAF6FB;
@@ -66,13 +66,13 @@
   main section[id] { scroll-margin-top: 5rem; }
   .faixa { padding: clamp(4rem, 8vw, 6.5rem) 1.25rem; }
   .faixa--nevoa { background: var(--nevoa); }
-  .faixa--azul { background: var(--azul); color: var(--tinta); }
-  .faixa--azul .titulo-secao { color: #0F2A33; }
+  .faixa--azul { background: var(--azul); color: #EAF6FB; }
+  .faixa--azul .titulo-secao { color: #FFFFFF; }
   /* Borda de gengiva: as faixas coloridas começam com o contorno ondulado da gengiva entre os dentes */
   .faixa--nevoa, .faixa--azul, .rodape { position: relative; }
   .faixa--nevoa { --cor-faixa: var(--nevoa); }
   .faixa--azul { --cor-faixa: var(--azul); }
-  .rodape { --cor-faixa: var(--petroleo); }
+  .rodape { --cor-faixa: var(--azul); }
   .faixa--nevoa::before, .faixa--azul::before, .rodape::before {
     content: ""; position: absolute; left: 0; right: 0; top: -15px; height: 16px; pointer-events: none;
     background: var(--cor-faixa);
@@ -284,7 +284,7 @@
   @media (max-width: 820px) { .chegar-grade { grid-template-columns: minmax(0, 1fr); } }
 
   /* Rodapé */
-  .rodape { background: var(--petroleo); color: #EAF6FB; padding: 3rem 1.25rem 6rem; font-size: .95rem; }
+  .rodape { background: var(--azul); color: #EAF6FB; padding: 3rem 1.25rem 6rem; font-size: .95rem; }
   .rodape-miolo { max-width: var(--largura); margin: 0 auto; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.5rem 2.5rem; align-items: start; }
   .rodape .mono { font-size: 4.5rem; color: #BDE6F5; }
   .rodape p + p { margin-top: .4rem; }
