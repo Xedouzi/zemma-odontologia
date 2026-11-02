@@ -352,6 +352,30 @@
   @media (prefers-reduced-motion: reduce) { .zap-flutuante { transition: none; transform: none; } }
 
 </style>
+<script>
+/* janela aberta com mouse ou dedo: ao fechar, o foco volta ao link ou botao sem a moldura de selecao;
+   quem navega pelo teclado (Tab/Enter) continua vendo onde esta */
+(() => {
+  let viaPonteiro = false;
+  addEventListener("pointerdown", () => { viaPonteiro = true; }, true);
+  addEventListener("keydown", (e) => { if (["Tab", "Enter", " "].includes(e.key)) viaPonteiro = false; }, true);
+  const abrir = HTMLDialogElement.prototype.showModal;
+  HTMLDialogElement.prototype.showModal = function () {
+    const dlg = this;
+    if (viaPonteiro) {
+      /* o navegador devolve o foco assim que a janela fecha: solta na hora, antes de a moldura aparecer */
+      const soltar = (ev) => {
+        if (dlg.open) return;
+        document.removeEventListener("focusin", soltar, true);
+        if (viaPonteiro && !ev.target.closest("dialog[open]")) ev.target.blur();
+      };
+      document.addEventListener("focusin", soltar, true);
+      dlg.addEventListener("close", () => setTimeout(() => document.removeEventListener("focusin", soltar, true)), { once: true });
+    }
+    return abrir.apply(this, arguments);
+  };
+})();
+</script>
 </head>
 <body>
 <a class="pular" href="#conteudo">Ir para o conteúdo</a>
